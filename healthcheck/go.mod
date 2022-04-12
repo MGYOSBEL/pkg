@@ -1,3 +1,3 @@
-module dev.azure.com/aquilessolutions/IT-OT-Convergence/_git/pkg/healthcheck
+module github.com/MGYOSBEL/pkg/healthcheck
 
 go 1.18
