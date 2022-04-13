@@ -64,6 +64,8 @@ func main() {
 		_ = http.ListenAndServe(":8080", nil)
 	}()
 
+	checker.Register("database", db)
+
 	Run(logger)
 }
 

@@ -41,6 +41,10 @@ func New(endpoint string, logger *zap.Logger) *HealthChecker {
 }
 
 func (hc *HealthChecker) Register(name string, ch Checker) {
+	if hc.checkers[name] != nil {
+		hc.sugar.Debugf("⚠️ \"/%s\" endpoint already registered", name)
+		return
+	}
 	hc.checkers[name] = ch
 	endpoint := fmt.Sprintf("/%s/%s", hc.endpoint, name)
 	http.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
