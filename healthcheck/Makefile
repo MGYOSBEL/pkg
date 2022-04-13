@@ -1,5 +1,6 @@
 deploy:
-	git add . && \
-	git commit -m "deploy" \
-	git pull gh master && \
-	git push -u gh master
+	cd /home/yosbel/go/src/github.com/MGYOSBEL/pkg && \
+	/usr/bin/git add . && \
+	/usr/bin/git commit -m "deploy" \
+	/usr/bin/git pull gh master && \
+	/usr/bin/git push -u gh master

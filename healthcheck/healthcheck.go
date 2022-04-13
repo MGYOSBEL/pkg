@@ -46,6 +46,9 @@ func (hc *HealthChecker) Register(name string, ch Checker) {
 	http.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		health, _ := (ch).Check()
 		res, _ := json.Marshal(health)
+		if health == false {
+			w.WriteHeader(http.StatusServiceUnavailable)
+		}
 		_, _ = w.Write(res)
 	})
 	hc.sugar.Debugf("❤️ Registered dependency healthcheck in endpoint: \"%v\"", endpoint)
@@ -56,6 +59,9 @@ func (hc *HealthChecker) RegisterGlobalStatus() {
 	http.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		hc.Status()
 		res, _ := json.Marshal(hc.health)
+		if hc.health.Status == false {
+			w.WriteHeader(http.StatusServiceUnavailable)
+		}
 		_, _ = w.Write(res)
 	})
 	hc.sugar.Infof("❤️ Global healthcheck registered in endpoint: \"%v\"", endpoint)
